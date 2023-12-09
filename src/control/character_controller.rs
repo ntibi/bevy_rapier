@@ -65,6 +65,9 @@ pub struct MoveShapeOptions {
     pub offset: CharacterLength,
     /// Should the character try to slide against the floor if it hits it?
     pub slide: bool,
+    /// Should the speed lost because of collisions be applied to the final direction ?
+    /// Useless if sliding is not enabled
+    pub reapply_lost_speed: bool,
     /// Should the character automatically step over small obstacles?
     pub autostep: Option<CharacterAutostep>,
     /// The maximum angle (radians) between the floor’s normal and the `up` vector that the
@@ -87,6 +90,7 @@ impl Default for MoveShapeOptions {
             up: def.up.into(),
             offset: def.offset,
             slide: def.slide,
+            reapply_lost_speed: def.reapply_lost_speed,
             autostep: def.autostep,
             max_slope_climb_angle: def.max_slope_climb_angle,
             min_slope_slide_angle: def.min_slope_slide_angle,
@@ -119,6 +123,9 @@ pub struct KinematicCharacterController {
     pub offset: CharacterLength,
     /// Should the character try to slide against the floor if it hits it?
     pub slide: bool,
+    /// Should the speed lost because of collisions be applied to the final direction ?
+    /// Useless if sliding is not enabled
+    pub reapply_lost_speed: bool,
     /// Should the character automatically step over small obstacles?
     pub autostep: Option<CharacterAutostep>,
     /// The maximum angle (radians) between the floor’s normal and the `up` vector that the
@@ -155,6 +162,7 @@ impl KinematicCharacterController {
             up: self.up.try_into().ok()?,
             offset: self.offset.map_absolute(|x| x / physics_scale),
             slide: self.slide,
+            reapply_lost_speed: self.reapply_lost_speed,
             autostep,
             max_slope_climb_angle: self.max_slope_climb_angle,
             min_slope_slide_angle: self.min_slope_slide_angle,
@@ -175,6 +183,7 @@ impl Default for KinematicCharacterController {
             up: def.up.into(),
             offset: def.offset,
             slide: def.slide,
+            reapply_lost_speed: def.reapply_lost_speed,
             autostep: def.autostep,
             max_slope_climb_angle: def.max_slope_climb_angle,
             min_slope_slide_angle: def.min_slope_slide_angle,

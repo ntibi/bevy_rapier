@@ -411,6 +411,7 @@ impl RapierContext {
             up,
             offset: options.offset.map_absolute(|x| x / physics_scale),
             slide: options.slide,
+            reapply_lost_speed: options.reapply_lost_speed,
             autostep,
             max_slope_climb_angle: options.max_slope_climb_angle,
             min_slope_slide_angle: options.min_slope_slide_angle,
